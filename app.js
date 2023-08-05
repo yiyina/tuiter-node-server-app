@@ -9,12 +9,28 @@ import AuthController from "./users/auth-controller.js";
 import "dotenv/config";
 import session from "express-session";
 const app = express();
+const allowedURLs = [
+  "http://localhost:3000",
+  "https://tuiter-node-server-app-hplh.onrender.com"
+];
 app.use(
     cors({
       credentials: true,
-      origin: process.env.FRONTEND_URL,
+      origin: function (origin, callback) {
+        if(allowedURLs.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      }
     })
-);
+)
+// app.use(
+//     cors({
+//       credentials: true,
+//       origin: process.env.FRONTEND_URL,
+//     })
+// );
 const sessionOptions = {
   secret: "any string",
   resave: false,

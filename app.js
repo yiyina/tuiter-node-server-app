@@ -12,7 +12,8 @@ const app = express();
 const allowedURLs = [
   "http://localhost:3000",
   "http://10.0.0.18:3000",
-  "https://a5--chimerical-piroshki-95b4e6.netlify.app"
+  "https://a5--chimerical-piroshki-95b4e6.netlify.app",
+  "http://localhost:4000"
 ];
 app.use(
     cors({

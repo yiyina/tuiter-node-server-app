@@ -11,7 +11,8 @@ import session from "express-session";
 const app = express();
 const allowedURLs = [
   "http://localhost:3000",
-  "https://tuiter-node-server-app-hplh.onrender.com"
+  "https://tuiter-node-server-app-hplh.onrender.com",
+  "https://tuiter-node-server-app-yina-c3a0f512bf1a.herokuapp.com/"
 ];
 app.use(
     cors({

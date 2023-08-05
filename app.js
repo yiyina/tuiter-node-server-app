@@ -19,11 +19,12 @@ app.use(
     cors({
       credentials: true,
       origin: function (origin, callback) {
-        if(allowedURLs.includes(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error("Not allowed by CORS"));
-        }
+        // if(allowedURLs.includes(origin)) {
+        //   callback(null, true);
+        // } else {
+        //   callback(new Error("Not allowed by CORS"));
+        // }
+        callback(null, true);
       }
     })
 )

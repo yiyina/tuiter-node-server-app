@@ -1,13 +1,14 @@
 // const express = require('express')
 import express from "express";
+import "dotenv/config";
+import session from "express-session";
 import cors from "cors";
 import HelloController from "./controllers/hello-controller.js"
 import UserController from "./users/users-controller.js";
 import TuitsController from "./controllers/tuits/tuits-controller.js";
 import AuthController from "./users/auth-controller.js";
 
-import "dotenv/config";
-import session from "express-session";
+
 const app = express();
 const allowedURLs = [
   "http://localhost:3000",
@@ -46,13 +47,12 @@ if (process.env.NODE_ENV !== "development") {
     secure: true,
   };
 }
-app.use(
-    session(sessionOptions)
-);
+app.use(session(sessionOptions));
+
 app.use(express.json());
-const port = process.env.PORT || 4000;
 TuitsController(app);
 HelloController(app);
 UserController(app);
 AuthController(app);
-app.listen(port);
+
+app.listen(process.env.PORT || 4000);

@@ -1,4 +1,5 @@
 import * as usersDao from "./users-dao.js";
+import users from "./users.js";
 
 const AuthController = (app) => {
  const register = (req, res) => {
@@ -8,7 +9,11 @@ const AuthController = (app) => {
         res.sendStatus(409);
         return;
     }
-    const newUser = usersDao.createUser(req.body);
+    const createUser = req.body;
+    createUser.firstName = "Default";
+    createUser.lastName = "Default";
+    createUser._id = (new Date()).getTime() + '';
+    const newUser = usersDao.createUser(createUser);
     req.session["currentUser"] = newUser;
     res.json(newUser);
  };
@@ -26,6 +31,7 @@ const AuthController = (app) => {
  };
  const profile  = (req, res) => {
     const currentUser = req.session["currentUser"];
+    console.log(req.session["currentUser"]);
     if (!currentUser) {
         res.sendStatus(404);
         return;
@@ -43,18 +49,8 @@ const AuthController = (app) => {
       return;
     }
     const updatedUserInfo = req.body;
-    currentUser.firstName = updatedUserInfo.firstName;
-    currentUser.lastName = updatedUserInfo.lastName;
-    const updatedUser = usersDao.updateUser(currentUser.id, {
-      firstName: currentUser.firstName,
-      lastName: currentUser.lastName,
-    });
-    if (!updatedUser) {
-      res.sendStatus(404);
-      return;
-    }
-
-    res.json(updatedUser);
+    usersDao.updateUser(currentUser._id, updatedUserInfo);
+    res.json(usersDao.findUserById(currentUser._id));
   };
 
   app.post("/api/users/register", register);

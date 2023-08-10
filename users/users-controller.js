@@ -4,8 +4,8 @@ const UserController = (app) => {
     app.get('/api/users', findUsers)
     app.get('/api/users/:uid', findUserById);
     app.post('/api/users', createUser);
-    app.delete('/api/users/:uid', deleteUser);
     app.put('/api/users/:uid', updateUser); // using put not update
+    app.delete('/api/users/:uid', deleteUser);
 }
 const updateUser = (req, res) => {
     const userId = req.params['uid'];

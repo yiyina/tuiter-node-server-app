@@ -8,13 +8,16 @@ import UserController from "./users/users-controller.js";
 import TuitsController from "./controllers/tuits/tuits-controller.js";
 import AuthController from "./users/auth-controller.js";
 
+import mongoose from "mongoose"; // load the mongoose library
+// mongoose.connect("mongodb://127.0.0.1:27017/tuiter"); // connect to the tuiter database
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/tuiter';
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 const allowedURLs = [
   "http://localhost:3000",
   "http://10.0.0.18:3000",
-  "https://tuiter-node-server-app-yina-c3a0f512bf1a.herokuapp.com/",
-  "http://localhost:4000"
+  "https://tuiter-node-server-app-hplh.onrender.com/",
 ];
 app.use(
     cors({
